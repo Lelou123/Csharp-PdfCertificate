@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2gfTnamOGh4zni7VZzQmvT3q9nVdK0N7o5RE4VmP/C8M4u4HGS2gmwO8LeOffLadm+RYu6Y7GDIFyzOjMd4U7Q==",
+  "dgSpecHash": "VdioM/dymknm9ga9xSs0KXzWWUr2O9m0X+0I9ba1mL22t4PaV80uG1YUAfApOoO2PuJ2rhKsGYAfnI1gcFUlWw==",
   "success": true,
-  "projectFilePath": "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfsECertificados\\PdfCertificado\\PdfCertificado\\PdfCertificado.csproj",
+  "projectFilePath": "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfCertificate\\PdfCertificado\\PdfCertificado\\PdfCertificado.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Muril\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Muril\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.13\\microsoft.aspnetcore.cryptography.internal.5.0.13.nupkg.sha512",

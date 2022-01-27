@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PdfCertificado.Data;
 using PdfCertificado.Models;
+
 
 namespace PdfCertificado.Controllers
 {
@@ -22,8 +25,64 @@ namespace PdfCertificado.Controllers
         // GET: Users
         public async Task<IActionResult> Create()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                TempData["mensagemErro"] = "Voce já está logado em uma conta";
+                return View(await _context.User.ToListAsync());
+
+            }
             return View(await _context.User.ToListAsync());
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Logar(string username, string senha, bool manterlogado)
+        {
+            User usuario = _context.User.AsNoTracking().FirstOrDefault(x => x.Username == username && x.Password == senha);
+
+            
+
+            if (usuario != null)
+            {
+                int usuarioId = usuario.Id;
+                string nome = usuario.Username;
+
+                List<Claim> direitosAcesso = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier,usuarioId.ToString()),
+                    new Claim(ClaimTypes.Name,nome)
+                };
+
+                var identity = new ClaimsIdentity(direitosAcesso, "Identity.Login");
+                var userPrincipal = new ClaimsPrincipal(new[] { identity });
+
+                await HttpContext.SignInAsync(userPrincipal,
+                    new AuthenticationProperties
+                    {
+                        IsPersistent = manterlogado,
+                        ExpiresUtc = DateTime.Now.AddHours(1)
+                    });
+
+                return RedirectToAction(nameof(Create));
+            }
+
+            return Json(new { Msg = "Usuário não encontrado! Verifique suas credenciais!" }); // pop up message e redireciona para o index
+        }
+
+
+
+
+        public async Task<IActionResult> Logout()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                await HttpContext.SignOutAsync();
+            }
+            return RedirectToAction("Index", "Users");
+        }
+
+
+
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)

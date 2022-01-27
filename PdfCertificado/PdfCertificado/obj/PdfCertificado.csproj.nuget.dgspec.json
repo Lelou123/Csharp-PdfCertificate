@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfsECertificados\\PdfCertificado\\PdfCertificado\\PdfCertificado.csproj": {}
+    "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfCertificate\\PdfCertificado\\PdfCertificado\\PdfCertificado.csproj": {}
   },
   "projects": {
-    "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfsECertificados\\PdfCertificado\\PdfCertificado\\PdfCertificado.csproj": {
+    "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfCertificate\\PdfCertificado\\PdfCertificado\\PdfCertificado.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfsECertificados\\PdfCertificado\\PdfCertificado\\PdfCertificado.csproj",
+        "projectUniqueName": "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfCertificate\\PdfCertificado\\PdfCertificado\\PdfCertificado.csproj",
         "projectName": "PdfCertificado",
-        "projectPath": "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfsECertificados\\PdfCertificado\\PdfCertificado\\PdfCertificado.csproj",
+        "projectPath": "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfCertificate\\PdfCertificado\\PdfCertificado\\PdfCertificado.csproj",
         "packagesPath": "C:\\Users\\Muril\\.nuget\\packages\\",
-        "outputPath": "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfsECertificados\\PdfCertificado\\PdfCertificado\\obj\\",
+        "outputPath": "Z:\\Mundiware\\Projeto Treino\\Csharp-PdfCertificate\\PdfCertificado\\PdfCertificado\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
