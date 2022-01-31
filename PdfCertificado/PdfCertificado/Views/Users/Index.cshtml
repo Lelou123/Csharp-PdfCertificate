@@ -17,7 +17,7 @@
 				<input asp-for="Username" class="form-control" />
 				<label asp-for="Email" class="control-label"></label>
 				<input asp-for="Email" class="form-control" />
-				<label asp-for="Password"  class="control-label"></label>
+				<label asp-for="Password" class="control-label"></label>
 				<input asp-for="Password" class="form-control" />
 				<button type="submit" value="Create" class="btn btn-primary mt-4">Cadastrar</button>
 
@@ -32,12 +32,21 @@
 	<div class="col-sm-4">
 		<form asp-action="Logar" method="post">
 			<div class="form-group">
-				@if (TempData["mensagemErro"] != null)
-				{
-					<div class="field-error">
-						<strong>@TempData["mensagemErro"]</strong>
-					</div>
+				@{
+					if (TempData["mensagemErro"] != null)
+					{
+						<div class="field-error">
+							<h4><strong>@TempData["mensagemErro"]</strong></h4>
+						</div>
+						<div class="field-error">
+							<h3><strong>@TempData["UsuarioLogado"]</strong></h3>
+						</div>
+						<p>
+							<a asp-action="Logout">Logout session</a>
+						</p>
+					}
 				}
+
 				<h3>Faça Login</h3>
 				<div class="form-label-group">
 					<input type="text" id="username" name="username" class="form-control" placeholder="Login" required autofocus>

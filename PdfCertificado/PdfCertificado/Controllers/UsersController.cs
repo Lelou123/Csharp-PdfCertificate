@@ -24,7 +24,7 @@ namespace PdfCertificado.Controllers
             _context = context;
             _environment = environment;
         }
-        
+
         // GET: Users
         /*
         public async Task<IActionResult> Create()
@@ -44,15 +44,14 @@ namespace PdfCertificado.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                TempData["mensagemErro"] = "Voce já está logado em uma conta";
+                TempData["UsuarioLogado"] = User.Identity.Name;
                 return View(await _context.User.ToListAsync());
-
             }
-            return View(await _context.User.ToListAsync());
+            return RedirectToAction(nameof(Index));
         }
 
 
-        
+
 
 
         [HttpPost]
@@ -60,7 +59,7 @@ namespace PdfCertificado.Controllers
         {
             User usuario = _context.User.AsNoTracking().FirstOrDefault(x => x.Username == username && x.Password == senha);
 
-            
+
 
             if (usuario != null)
             {
@@ -82,7 +81,7 @@ namespace PdfCertificado.Controllers
                         IsPersistent = manterlogado,
                         ExpiresUtc = DateTime.Now.AddHours(1)
                     });
-                
+
                 return RedirectToAction(nameof(Pdfview));
             }
 
@@ -100,15 +99,12 @@ namespace PdfCertificado.Controllers
         }
 
 
-        
-
-        
 
         [HttpPost]
         public async Task<IActionResult> Pdfupload(ICollection<IFormFile> files)
         {
             User user = new User();
-            var uploads = Path.Combine(_environment.WebRootPath, "uploads/ " + User.Identity.Name);
+            var uploads = Path.Combine(_environment.WebRootPath, "uploads/" + User.Identity.Name);
             foreach (var file in files)
             {
                 if (file.Length > 0)
@@ -123,12 +119,21 @@ namespace PdfCertificado.Controllers
         }
 
 
-
-
         // GET: Users/Create
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                TempData["mensagemErro"] = "Voce já está logado na conta";
+                TempData["UsuarioLogado"] = User.Identity.Name;
+                return View();
+            }
+            else
+            {
+                TempData["mensagemErro"] = null;
+                return View();
+            }
+            
         }
 
         // POST: Users/Create
@@ -143,6 +148,7 @@ namespace PdfCertificado.Controllers
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 Directory.CreateDirectory(@"Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\wwwroot\uploads\" + user.Username);
+                Directory.CreateDirectory(@"Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\wwwroot\uploads\" + user.Username + @"\DeletedFiles");
                 return RedirectToAction(nameof(Index)); // Create
             }
             return View(user);
@@ -151,7 +157,11 @@ namespace PdfCertificado.Controllers
 
 
 
-        
+
+
+
+
+
 
 
 
@@ -252,7 +262,7 @@ namespace PdfCertificado.Controllers
             var user = await _context.User.FindAsync(id);
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Pdfview));
         }
 
         private bool UserExists(int id)
