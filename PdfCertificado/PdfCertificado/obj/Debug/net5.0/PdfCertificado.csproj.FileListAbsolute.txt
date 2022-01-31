@@ -346,3 +346,4 @@ Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\ref\PdfCertificado.dll
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\PdfCertificado.pdb
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\PdfCertificado.genruntimeconfig.cache
+Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Users\Pdfview.cshtml.g.cs

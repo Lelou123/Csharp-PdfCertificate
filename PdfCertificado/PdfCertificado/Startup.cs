@@ -29,7 +29,8 @@ namespace PdfCertificado
 
             services.AddDbContext<PdfCertificadoContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("PdfCertificadoContext")));
-            services.AddAuthentication("Identy.Login").AddCookie("Identy.Login", config => { config.Cookie.Name = "Identy.Login"; config.LoginPath = "/Users"; config.AccessDeniedPath = "/Home"; config.ExpireTimeSpan = TimeSpan.FromHours(1); });
+            
+            services.AddAuthentication("Identity.Login").AddCookie("Identity.Login", config => { config.Cookie.Name = "Identity.Login"; config.LoginPath = "/Users"; config.AccessDeniedPath = "/Home"; config.ExpireTimeSpan = TimeSpan.FromHours(1); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
