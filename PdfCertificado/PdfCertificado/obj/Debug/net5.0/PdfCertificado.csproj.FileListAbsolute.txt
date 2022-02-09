@@ -331,8 +331,6 @@ Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
-Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Users\Create.cshtml.g.cs
-Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Users\Delete.cshtml.g.cs
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Users\Details.cshtml.g.cs
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Users\Edit.cshtml.g.cs
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Users\Index.cshtml.g.cs
@@ -347,3 +345,8 @@ Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\PdfCertificado.pdb
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\PdfCertificado.genruntimeconfig.cache
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Users\Pdfview.cshtml.g.cs
+Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Users\AdminPage.cshtml.g.cs
+Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Users\CreateCert.cshtml.g.cs
+Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\bin\Debug\net5.0\Spire.License.dll
+Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\bin\Debug\net5.0\Spire.Pdf.dll
+Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Users\DeleteUser.cshtml.g.cs

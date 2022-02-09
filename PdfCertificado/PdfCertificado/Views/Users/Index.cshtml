@@ -6,6 +6,7 @@
 
 
 
+
 <div class="row d-flex justify-content-between ">
 	<h1 class="text-center mt-5">Bem vindo</h1>
 
@@ -19,9 +20,15 @@
 				<input asp-for="Email" class="form-control" />
 				<label asp-for="Password" class="control-label"></label>
 				<input asp-for="Password" class="form-control" />
+
+
+
+
 				<button type="submit" value="Create" class="btn btn-primary mt-4">Cadastrar</button>
 
 			</div>
+
+
 		</form>
 	</div>
 	<div class="col-sm-2 mt-5">
@@ -62,6 +69,15 @@
 					<input type="checkbox" class="custom-control-input" id="customCheck1" name="manterlogado">
 					<label class="custom-control-label" for="customCheck1">Manter Logado?</label>
 				</div>
+				@{
+					if (TempData["MensagemLoginInvalido"] != null)
+					{
+						<div class="field-error">
+							<h4><strong>@TempData["MensagemLoginInvalido"]</strong></h4>
+						</div>
+
+					}
+				}
 
 				<button type="submit" class="btn btn-primary mt-2">Login</button>
 

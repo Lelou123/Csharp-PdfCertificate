@@ -1,0 +1,21 @@
+﻿@model PdfCertificado.Models.Services.FIleName;
+@{
+	ViewData["Title"] = "CreateCert";
+}
+
+<h1>CreateCert</h1>
+<div class="  mt-2 mb-2 col-md-12 text-center">
+	<form class="mt-5" method="post" asp-action="CertUpload" asp-controller="Users" enctype="multipart/form-data">
+		<input type="file" name="files" multiple />
+		<br>
+		<label asp-for="CertPassword" class="control-label mt-4">Insira a senha</label>
+		
+		<input asp-for="CertPassword" class="form-control mt-2" />
+		<button type="submit" value="Upload" class="btn btn-success mt-2">Save</button>
+
+	</form>
+	<form asp-action="Pdfview">
+		<button type="submit" class="btn btn-primary mt-2"> Voltar</button>
+	</form>
+</div>
+
