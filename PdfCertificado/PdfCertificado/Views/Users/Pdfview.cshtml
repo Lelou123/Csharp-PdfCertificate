@@ -14,7 +14,14 @@
 	<a asp-action="Logout">Logout session</a>
 </h5>
 <div class="text-center">
-	<h4 class="mt-5" > <a asp-action="CreateCert">Cadastre seu Certificado digital</a></h4>
+	<h4 class="mt-5"> <a asp-action="CreateCert">Cadastre seu Certificado digital</a></h4>
+	@if (TempData["SemCertificado"] != null)
+	{
+		<div class="field-error mt-5">
+			<h3><strong>@TempData["SemCertificado"]</strong></h3>
+		</div>
+	}
+
 	<h4 class="mt-5"> Cadastre seu pdf</h4>
 	<form class="mb-5" method="post" asp-action="PdfUpload" asp-controller="Users" enctype="multipart/form-data">
 		<input type="file" name="files" multiple />
@@ -38,7 +45,7 @@
 				<td>
 					@Html.DisplayFor(modelItem=> item.FileName)
 				</td>
-				<td>	
+				<td>
 					<a href="../Users/Delete?file=@item.FileName.ToString()"><button type="button" class="btn btn-danger">Excluir</button></a>
 				</td>
 			</tr>

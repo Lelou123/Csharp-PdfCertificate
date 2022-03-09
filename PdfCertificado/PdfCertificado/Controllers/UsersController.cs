@@ -25,7 +25,29 @@ namespace PdfCertificado.Controllers
             _environment = environment;
         }
 
-        // GET: Users
+
+        public IActionResult Index()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                TempData["mensagemErro"] = "Voce já está logado na conta";
+                TempData["UsuarioLogado"] = User.Identity.Name;
+                return View();
+            }
+            else
+            {
+                TempData["mensagemErro"] = null;
+                return View();
+            }
+
+        }
+
+        public IActionResult CreateCert()
+        {
+            return View();
+        }
+
+
 
         public async Task<IActionResult> AdminPage()
         {
@@ -41,14 +63,17 @@ namespace PdfCertificado.Controllers
 
         public async Task<IActionResult> Pdfview()
         {
+            User user = new User();
             if (User.Identity.IsAuthenticated)
             {
                 TempData["UsuarioLogado"] = User.Identity.Name;
 
-
                 string username = User.Identity.Name;
 
-                string[] allfiles = Directory.GetFiles(@"Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\wwwroot\uploads\" + username + @"\docsAssinados", "*.pdf", SearchOption.TopDirectoryOnly); // dar um jeito de a pesquisa rolar apenas no TopDirectories;
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                var pathUser = Path.Combine(_environment.WebRootPath, "uploads/" + userId + User.Identity.Name);
+                string[] allfiles = Directory.GetFiles(Path.Combine(pathUser, "docsAssinados"), "*.pdf", SearchOption.TopDirectoryOnly);
 
                 var files = new List<FIleName>();
 
@@ -64,11 +89,36 @@ namespace PdfCertificado.Controllers
 
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index([Bind("Id,Username,Email,Password")] User user)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                user.Password = EncryptMethod.ConvertToEncrypt(user.Password);
+                _context.Add(user);
+                await _context.SaveChangesAsync();
+                var pathUser = Path.Combine(_environment.WebRootPath, "uploads/" + user.Id + user.Username);
+                Directory.CreateDirectory(pathUser);
+
+                Directory.CreateDirectory(Path.Combine(pathUser, "docsAssinados"));
+                Directory.CreateDirectory(Path.Combine(pathUser, "DeletedFiles"));
+                return RedirectToAction(nameof(Index));
+            }
+            return View(user);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Logar(string username, string senha, bool manterlogado)
         {
-            User usuario = _context.User.AsNoTracking().FirstOrDefault(x => x.Username == username && x.Password == senha);
+            User usuario = new User();
+            // puxar a senha do sql server primeiro e depois usar o converte nela 
+            senha = EncryptMethod.ConvertToEncrypt(senha);
+
+            usuario = _context.User.AsNoTracking().FirstOrDefault(x => x.Username == username && x.Password == senha);
 
 
             if (usuario != null)
@@ -122,109 +172,87 @@ namespace PdfCertificado.Controllers
         public async Task<IActionResult> PdfUpload(ICollection<IFormFile> files)
         {
             User user = new User();
-            var uploads = Path.Combine(_environment.WebRootPath, "uploads/" + User.Identity.Name);
-            foreach (var file in files)
-            {
-                if (file.Length > 0)
-                {
-                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-                }
-            }
-            foreach (var file in files)
-            {
-                FIleName filename = new FIleName();
-                string userName = User.Identity.Name;
-                string passwordPath = @"Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\wwwroot\uploads\" + User.Identity.Name + @"\senha.txt";
-                string certPath = @"Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\wwwroot\uploads\" + User.Identity.Name + @"\CertifcadoPdf.pfx";
-                
-                string filePath = Path.Combine(uploads, file.FileName);
-                filename.AddAssinaturaDigital(filePath, passwordPath, certPath, userName, _environment);
-
-            }
-            
-            return RedirectToAction(nameof(Pdfview));
-        }
-
-
-
-        
-        [HttpPost]
-        public async Task<IActionResult> CertUpload(FIleName filen, ICollection<IFormFile> files)
-        {
-            User user = new User();
             FIleName filename = new FIleName();
-            var uploads = Path.Combine(_environment.WebRootPath, "uploads/" + User.Identity.Name);
-
-            foreach (var file in files)
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var uploads = Path.Combine(_environment.WebRootPath, "uploads/" + userId + User.Identity.Name);
+            string passwordPath = Path.Combine(uploads, "senha.txt");
+            string certPath = Path.Combine(uploads, "CertifcadoPdf.pfx");
+            if (System.IO.File.Exists(passwordPath) && System.IO.File.Exists(certPath))
             {
-                if (file.Length > 0)
+                string p = ".pdf";
+                foreach (var file in files)
                 {
-                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                    string filePath = Path.Combine(uploads, file.FileName);
+                    if (file.Length > 0 && filePath.Contains(p))
                     {
-                        await file.CopyToAsync(fileStream);
+                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
                     }
                 }
-            }
+                foreach (var file in files)
+                {
 
-            string targetPath = @"Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\wwwroot\uploads\" + User.Identity.Name + @"\senha.txt";
-            
-            
-            filename.CreateSenha(targetPath, filen);
-            
-            return RedirectToAction(nameof(Pdfview));
-        }
+                    string userName = User.Identity.Name;
 
-		
+                    string pathAssinados = Path.Combine(uploads, "docsAssinados");
+                    string filePath = Path.Combine(uploads, file.FileName);
+                    try
+                    {
+                        if (filePath.Contains(p))
+                        {
+                            filename.AddAssinaturaDigital(pathAssinados, filePath, passwordPath, certPath, userName, _environment);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["SemCertificado"] = "Por favor verfique sua senha!";
+                    }
 
-
-
-
-		// GET: Users/Create
-		public IActionResult Index()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                TempData["mensagemErro"] = "Voce já está logado na conta";
-                TempData["UsuarioLogado"] = User.Identity.Name;
-                return View();
+                }
             }
             else
             {
-                TempData["mensagemErro"] = null;
-                return View();
+                TempData["SemCertificado"] = "Por favor verfique seu certificado e (ou) a senha!";
             }
-
-        }
-
-        public IActionResult CreateCert()
-        {
-            return View();
+            return RedirectToAction(nameof(Pdfview));
         }
 
 
 
-        // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index([Bind("Id,Username,Email,Password")] User user)
+        public async Task<IActionResult> CertUpload(FIleName filen, ICollection<IFormFile> files)
         {
-            if (ModelState.IsValid)
+            if (filen == null || files == null)
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                Directory.CreateDirectory(@"Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\wwwroot\uploads\" + user.Id + user.Username);
-                Directory.CreateDirectory(@"Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\wwwroot\uploads\" + user.Username + @"\DeletedFiles");
-                return RedirectToAction(nameof(Index)); // Create
+                TempData["Cert"] = "Por favor Preencha ambos campos!";
+                return RedirectToAction(nameof(CreateCert));
             }
-            return View(user);
+            else
+            {
+                User user = new User();
+                FIleName filename = new FIleName();
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var uploads = Path.Combine(_environment.WebRootPath, "uploads/" + userId + User.Identity.Name);
+
+                foreach (var file in files)
+                {
+                    if (file.Length > 0)
+                    {
+                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
+                    }
+                }
+
+                string targetPath = Path.Combine(uploads, "senha.txt");
+
+                filename.CreateSenha(targetPath, filen);
+            }
+            return RedirectToAction(nameof(Pdfview));
         }
-
-
 
 
 
@@ -232,12 +260,13 @@ namespace PdfCertificado.Controllers
         {
             FIleName fileName = new FIleName();
             string userName = User.Identity.Name;
-
-
-            string userPath = @"Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\wwwroot\uploads\" + User.Identity.Name;
-
-            string sourcePath = Path.Combine(userPath, file);
-            string targetPath = Path.Combine(userPath, "DeletedFiles", file);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            DateTime date = DateTime.Now;
+            string userPath = Path.Combine(_environment.WebRootPath, "uploads/" + userId + User.Identity.Name);
+            string data = date.ToString("dd-MM-yyyy HH.mm.ss");
+            string teste = data + "-" + file;
+            string sourcePath = Path.Combine(userPath, "docsAssinados", file);
+            string targetPath = Path.Combine(userPath, "DeletedFiles", teste);
 
             fileName.DeletArquivo(sourcePath, targetPath);
             return RedirectToAction(nameof(Pdfview));
@@ -245,10 +274,7 @@ namespace PdfCertificado.Controllers
 
 
 
-
-
-
-//Admin page Controllers
+        //Admin page Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -298,7 +324,7 @@ namespace PdfCertificado.Controllers
         }
 
 
-        
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -315,13 +341,6 @@ namespace PdfCertificado.Controllers
 
             return View(user);
         }
-
-
-
-
-        
-        
-
 
 
 
@@ -344,10 +363,6 @@ namespace PdfCertificado.Controllers
 
 
 
-
-
-
-        // POST: Users/Delete/5
         [HttpPost, ActionName("DeleteUser")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

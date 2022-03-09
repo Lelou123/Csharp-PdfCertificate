@@ -6,6 +6,8 @@ using System.Drawing;
 using Spire.Pdf.Security;
 using Spire.Pdf;
 using Microsoft.AspNetCore.Hosting;
+using System.Security.Claims;
+
 
 namespace PdfCertificado.Models.Services
 {
@@ -17,20 +19,24 @@ namespace PdfCertificado.Models.Services
 
         public void CreateSenha(string targetPath, FIleName filen)
 		{
-            User user = new User();
             
-            using (StreamWriter sw = File.AppendText(targetPath))
+            if (CertPassword != "")
             {
-                sw.WriteLine(filen.CertPassword);
+                using (StreamWriter sw = File.CreateText(targetPath))
+                {
+                    sw.WriteLine(filen.CertPassword);
+
+                }
             }
         }
 
-        public void AddAssinaturaDigital(string filePath, string passwordPath, string certPath, string userName,  IWebHostEnvironment _environment)
+        public void AddAssinaturaDigital(string pathAssinadoss, string filePath, string passwordPath, string certPath, string userName,  IWebHostEnvironment _environment)
         {
-
+            
             string password;
             string pathPassword = passwordPath;
-            string pathAssinados = Path.Combine(_environment.WebRootPath, "uploads", userName, "docsAssinados");
+            string pathAssinados = pathAssinadoss;
+            
             string pathUserAssinados = Path.Combine(pathAssinados);
             
             using (StreamReader sr = new StreamReader(pathPassword))
@@ -52,27 +58,35 @@ namespace PdfCertificado.Models.Services
 
             signature.GraphicsMode = GraphicMode.SignDetail;
 
-
-
             signature.Name = userName;
             signature.Date = DateTime.Now;
 
             signature.SignDetailsFont = new PdfTrueTypeFont(new Font("Arial Unicode MS", 12, FontStyle.Regular));
 
             signature.DocumentPermissions = PdfCertificationFlags.ForbidChanges | PdfCertificationFlags.AllowFormFill;
+            
 
-            document.SaveToFile(Path.Combine(pathUserAssinados, Path.GetFileName(filePath)));
+            string pathSave = Path.Combine(pathUserAssinados, Path.GetFileName(filePath));
+            
+            int count = 0;
+            string[] filePathh = pathSave.Split(".pdf");
+            string vet = filePathh[0];
+            while (File.Exists(pathSave))
+            {
+                count++;
+                pathSave = vet + "(" + count + ")" + ".pdf";
+            }
+            document.SaveToFile(pathSave);
+            
             File.Delete(filePath);
             document.Close();
         }
+        
+
 
         public void DeletArquivo(string sourcePath, string targetPath)
         {
-
-            File.Copy(sourcePath, targetPath);
-            File.Delete(sourcePath);
+            File.Move(sourcePath, targetPath);
         }
-
-
     }
 }

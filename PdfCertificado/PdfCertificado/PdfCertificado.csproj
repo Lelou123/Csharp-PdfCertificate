@@ -5,9 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\uploads\teste888\**" />
+    <Content Remove="wwwroot\uploads\teste888\**" />
+    <EmbeddedResource Remove="wwwroot\uploads\teste888\**" />
+    <None Remove="wwwroot\uploads\teste888\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Views\EditPdf\" />
     <Folder Include="Views\Pdfviews\" />
-    <Folder Include="wwwroot\uploads\teste888\docsAssinados\" />
   </ItemGroup>
 
   <ItemGroup>

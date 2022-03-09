@@ -199,7 +199,6 @@ Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\bin\Debug\net5.0\PdfCertificado.runtimeconfig.json
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\bin\Debug\net5.0\PdfCertificado.runtimeconfig.dev.json
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\bin\Debug\net5.0\PdfCertificado.dll
-Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\bin\Debug\net5.0\ref\PdfCertificado.dll
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\bin\Debug\net5.0\PdfCertificado.pdb
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\bin\Debug\net5.0\PdfCertificado.Views.dll
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\bin\Debug\net5.0\PdfCertificado.Views.pdb
@@ -350,3 +349,4 @@ Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\bin\Debug\net5.0\Spire.License.dll
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\bin\Debug\net5.0\Spire.Pdf.dll
 Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\Razor\Views\Users\DeleteUser.cshtml.g.cs
+Z:\Mundiware\Projeto Treino\Csharp-PdfCertificate\PdfCertificado\PdfCertificado\obj\Debug\net5.0\refint\PdfCertificado.dll
