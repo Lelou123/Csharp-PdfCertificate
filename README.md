@@ -1,11 +1,9 @@
 # Csharp-PdfCertificate
 
-
-Bem-vindo ao meu repositorio feito por um desafio proposto pela Mundiware. Esse é um assinador de pdfs com um certficado digital
-
+Welcome to my repository made from a challenge by mundiware. That is a pdf sign with digital certificates.
 
 
-### Essa foi meu primeiro projeto em Asp.Net Core utilizei: 
+### Languages and Frameworks
 
 - C#
 
@@ -16,21 +14,21 @@ Bem-vindo ao meu repositorio feito por um desafio proposto pela Mundiware. Esse 
 - Sql Server
 
 
-<h2>Recursos aplicação</h2>
-- Função principal: Assinar documentos pdf com uma assinatura digital
-- Layout: Claro sem opção escura
-- Login e cadastro de usuario com banco de dados
-<h3>Recursos tecnicos</h3>
-- Voce pode fazer o upload e delete dos arquivos
-- Voce deve upar seu proprio certificado digital protegido com senha
+<h2>Applications Resources</h2>
+- Main function: Sign pdf documents with a digital sign.<br>
+- Layout: White without the dark theme<br>
+- Sign in e Sign Up of users in database<br>
+<h3>Functional resources</h3>
+- You may do the upload and delete the files<br>
+- You must upload your own digital certificate protected by a password.<br>
 
-<h2>Como funciona?</h2>
+<h2>How does it work?</h2>
 
 
-1. Primeiramente faça seu cadastro com seus dados
-2. Faça o login com seus dados.
-3. Cadastre um certificado digital e insira a senha que foi definido quando criado
-4. Faça o upload de seu pdf que deseja fazer a aplicação do certificado
+1. First do your sign up with your data
+2. Do the sign in with your credencials
+3. Upload a digital certificate and put a password (which was defined when the digital certificate was generate)
+4. Do the pdf upload wich you want to sign with the certificate.
 
 ### Desktop Preview
 
