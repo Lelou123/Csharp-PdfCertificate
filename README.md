@@ -1,6 +1,6 @@
 # Csharp-PdfCertificate
 
-Welcome to my repository made from a challenge by mundiware. That is a pdf sign with digital certificates.
+Welcome to my repository made from a challenge by Mundiware. That is a pdf sign with digital certificates.
 
 
 ### Languages and Frameworks
@@ -17,7 +17,7 @@ Welcome to my repository made from a challenge by mundiware. That is a pdf sign 
 <h2>Applications Resources</h2>
 - Main function: Sign pdf documents with a digital sign.<br>
 - Layout: White without the dark theme<br>
-- Sign in e Sign Up of users in database<br>
+- Sign in and Sign Up of users in database<br>
 <h3>Functional resources</h3>
 - You may do the upload and delete the files<br>
 - You must upload your own digital certificate protected by a password.<br>
@@ -26,9 +26,9 @@ Welcome to my repository made from a challenge by mundiware. That is a pdf sign 
 
 
 1. First do your sign up with your data
-2. Do the sign in with your credencials
-3. Upload a digital certificate and put a password (which was defined when the digital certificate was generate)
-4. Do the pdf upload wich you want to sign with the certificate.
+2. Do the sign in with your credentials
+3. Upload a digital certificate and put a password (which was defined when the digital certificate was generated)
+4. Do the pdf upload which you want to sign with the certificate.
 
 ### Desktop Preview
 
